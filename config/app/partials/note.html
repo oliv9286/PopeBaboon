@@ -1,0 +1,155 @@
+	<div class="container">
+
+
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs" id="mainTab">
+				  <li class="active"><a data-target="#notebook" data-toggle="tab">My Notebook</a></li>
+				  <li><a data-target="#newnote" data-toggle="tab">Create New Note</a></li>
+
+				</ul>
+
+				<!-- Tab panes -->
+				<div class="tab-content">
+				  <div class="tab-pane fade in active" id="notebook">
+				  	<div class="row">
+				  		<div class="col-lg-12">
+							<input type="search"  class="search form-control" ng-model="q" placeholder="search notes">
+						</div>
+					</div>
+
+					<div class="row content">
+						<div class="col-xs-11">
+						<div class="btn-toolbar" role="toolbar">
+						<div class="btn-group">
+							<button class="btn btn-default glyphicon" ng-click="tagFilter = {}">All</button>
+						</div>
+						<div class="btn-group">
+							<button class="btn btn-primary glyphicon glyphicon-tag" ng-click="tagFilter = {tag: 'blue'}"></button>
+							<button class="btn btn-success glyphicon glyphicon-tag" ng-click="tagFilter = {tag: 'green'}"></button>
+							<button class="btn btn-info glyphicon glyphicon-tag" ng-click="tagFilter = {tag: 'lightblue'}"></button>
+							<button class="btn btn-warning glyphicon glyphicon-tag" ng-click="tagFilter = {tag: 'orange'}"></button>
+							<button class="btn btn-danger glyphicon glyphicon-tag" ng-click="tagFilter = {tag: 'red'}"></button>
+						</div>
+
+						</div>
+						</div>
+						<div class="col-xs-1">
+						<div class="btn-group">
+							<button class="btn btn-primary btn-sm" ng-click="logout()">Logout</button>
+						</div>
+						</div>
+
+					</div>
+
+					<div class="notebook">
+						<div ng-show="empty" class="col-lg-12">
+
+							<div class="empty">
+							<img alt="pope baboon" src="img/popebaboon-icon.png"/>
+							<p class="lead">Ahh, seems like you don't have any notes yet!</p>
+							</div>
+
+						
+							<div class="col-md-1"></div>
+							<div class="col-md-10">
+							<div class="instructions blue">
+								<p>Usage Tips:</p>
+								<ul>Click directly on a note to make quick edit, Pope Baboon saves all your changes automatically!</ul>
+								<ul>For more complex edits, open it up in rich text editor by clicking <span class="glyphicon glyphicon-edit"></span></ul>
+							</div>
+							</div>
+							<div class="col-md-1"></div>
+						</div>
+
+
+									
+				  	<div ng-repeat="note in notes |orderByPriority | orderBy: '-date'| filter:q | filter:tagFilter:true">
+				  		<div class="col-lg-12">
+				  		
+
+				  			<div ng-mouseenter="showControl($index)" ng-mouseleave="hideControl($index)" class="notepage {{note.tag}}" id="note{{$index}}">
+
+				  			<!-- fix this to be on-keyup -->
+							<p class="notecontent" contenteditable="true" data-ng-keydown="setCursorToEnd($event.target)" data-ng-keydown="note.content = $event.target.innerHTML" data-ng-blur="note.content = $event.target.innerHTML" ng-bind-html="note.content | unsafe">
+							</p>
+					  			<div class="row" id="toolbar">
+						  			<div class="col-xs-10">
+
+						  			<div class="control" id="control{{$index}}">
+						  				<span> Last Modified: {{note.prettyDate}} </span>
+						  			
+
+									<div class="btn-group">
+										<button class="btn btn-primary btn-xs glyphicon glyphicon-tag" ng-click="updateTag($index, note,'blue')"></button>
+										<button class="btn btn-success btn-xs glyphicon glyphicon-tag" ng-click="updateTag($index, note,'green')"></button>
+										<button class="btn btn-info btn-xs glyphicon glyphicon-tag" ng-click="updateTag($index, note,'lightblue')"></button>
+										<button class="btn btn-warning btn-xs glyphicon glyphicon-tag" ng-click="updateTag($index, note,'orange')"></button>
+										<button class="btn btn-danger btn-xs glyphicon glyphicon-tag"  ng-click="updateTag($index, note,'red')"></button>
+									</div>	
+
+
+									</div>
+									</div>
+						  			<div class="col-xs-2">					  				
+
+						  		 	
+						  			<button ng-click="removeNote(note)" class="option glyphicon glyphicon-trash"></button>
+						  			<button ng-click="tag= note.tag; open($index,note)" class="option glyphicon glyphicon-edit"></button>
+						  			</div>
+					  			</div>
+				  			</div>
+
+				  		</div>
+				  	</div>
+				  	</div>
+
+				  </div>
+
+
+				  <div class="tab-pane fade" id="newnote">
+				  	<form role="form">
+				  	<div class="col-lg-12">
+					<textarea class="createnote" id="notecontent">
+					</textarea>
+
+				</div>
+
+					<div class="col-md-10">
+						<p class="text-primary">Tag your note (optional):</p>
+
+					<div class="btn-group">
+					  <label class="btn btn-primary">
+					    <input type="radio" ng-model="tag" value="blue">
+					  </label>
+					  <label class="btn btn-success">
+					    <input type="radio" ng-model="tag" value="green">
+					  </label>
+					  <label class="btn btn-info">
+					    <input type="radio" ng-model="tag" value="lightblue">
+					  </label>
+					  <label class="btn btn-warning">
+					    <input type="radio" ng-model="tag" value="orange">
+					  </label>
+					  <label class="btn btn-danger">
+					    <input type="radio" ng-model="tag" value="red">
+					  </label>
+					</div>					
+
+					</div>
+					<div class="col-md-2">
+						<div class="btn-toolbar pull-right">
+							<div class="btn-group">
+								<button ng-show="update" class="btn btn-default" ng-click="openForUpdate(openId)">Save</button>
+							</div>
+							<div class="btn-group">
+								<button class="btn btn-default" ng-click="addNote()">Create</button>
+							</div>
+						</div>
+					</div>
+					</div>
+				  	</form>
+
+				  </div>
+				</div>
+
+</div>
