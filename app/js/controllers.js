@@ -7,6 +7,15 @@ angular.module('myApp.controllers', [])
     $scope.pass = null;
     $scope.confirm = null;
 
+
+
+    // $('#content').keydown(function(){
+    //     console.log('keydown');
+    //     if(!$(this).text().trim()){
+    //       setCursorToEnd($(this));
+    //     }
+    // });
+
     /* Email and password login */
     $scope.login = function(cb) {
        $scope.err = null;
@@ -106,6 +115,7 @@ angular.module('myApp.controllers', [])
          }
       );
 
+
    $scope.notes = syncData(['users', $scope.auth.user.uid, 'notes']);
 
    /* count the number of notes that the user owns, display empty message if zero */
@@ -117,6 +127,20 @@ angular.module('myApp.controllers', [])
           $scope.empty = false;
         };
       }); 
+  }
+
+  /* sets the cursor for contenteditable to the end*/
+  $scope.setCursorToEnd = function(ele)
+  {
+
+    console.log('keydown');
+    var range = document.createRange();
+    var sel= window.getSelection();
+    range.setStart(ele, 1);
+    range.collapse(true);
+    sel.removeAllRanges();
+    sel.addRange(range);
+    ele.focus();
   }
 
   $scope.countNotes();
@@ -238,14 +262,20 @@ angular.module('myApp.controllers', [])
        $('#mainTab a[data-target="#notebook"]').tab('show');
   }
 
-    $scope.syncAccount = function() {
-       $scope.user = {};
-       syncData(['users', $scope.auth.user.uid]).$bind($scope, 'user').then(function(unBind) {
-          $scope.unBindAccount = unBind;
-       });
-    };
-    // set initial binding
-    $scope.syncAccount();
+    // $scope.syncAccount = function() {
+    //    $scope.user = {};
+    //    syncData(['users', $scope.auth.user.uid]).$bind($scope, 'user').then(function(unBind) {
+    //       $scope.unBindAccount = unBind;
+    //    });
+    // };
+    // // set initial binding
+    // $scope.syncAccount();
+
+    $scope.testBinding = function () {
+      syncData(['users', $scope.auth.user.uid, 'notes']).$bind($scope, 'notes');
+    }
+
+    $scope.testBinding();
 
     $scope.logout = function() {
        loginService.logout();

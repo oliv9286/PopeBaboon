@@ -7,6 +7,24 @@
 /*! normalize.css v3.0.0 | MIT License | git.io/normalize */
 
 /*classes*/
+
+.notedisplay {
+  border-style: none;
+  width: 100%;
+  min-height: 100px;
+  background-color: transparent;
+  font-size: 18px;
+  font-weight: lighter;
+}
+
+.instructions {
+  padding: 10px;
+  color: white;
+  border-radius: 5px;
+  font-weight: lighter;
+  font-size: 18px;
+}
+
 .row {
   margin: 5px;
 }
@@ -18,7 +36,7 @@
 
 .empty {
   text-align: center;
-  margin: 10% 0;
+  margin: 20px 0;
 }
 
 .brand-hr {

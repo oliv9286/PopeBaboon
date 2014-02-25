@@ -42,16 +42,36 @@
 					</div>
 
 					<div class="notebook">
-						<div ng-show="empty" class="col-lg-12 empty">
+						<div ng-show="empty" class="col-lg-12">
+
+							<div class="empty">
 							<img alt="pope baboon" src="img/popebaboon-icon.png"/>
 							<p class="lead">Ahh, seems like you don't have any notes yet!</p>
+							</div>
+
+						
+							<div class="col-md-1"></div>
+							<div class="col-md-10">
+							<div class="instructions blue">
+								<p>Usage Tips:</p>
+								<ul>Click directly on a note to make quick edit, Pope Baboon saves all your changes automatically!</ul>
+								<ul>For more complex edits, open it up in rich text editor by clicking <span class="glyphicon glyphicon-edit"></span></ul>
+							</div>
+							</div>
+							<div class="col-md-1"></div>
 						</div>
 
+
+									
 				  	<div ng-repeat="note in notes |orderByPriority | orderBy: '-date'| filter:q | filter:tagFilter:true">
 				  		<div class="col-lg-12">
+				  		
+
 				  			<div ng-mouseenter="showControl($index)" ng-mouseleave="hideControl($index)" class="notepage {{note.tag}}" id="note{{$index}}">
-					  			<p ng-bind-html="note.content | unsafe"  contenteditable="true"></p>
-					  			
+
+				  			<!-- fix this to be on-keyup -->
+							<p class="notecontent" contenteditable="true" data-ng-keydown="setCursorToEnd($event.target)" data-ng-keydown="note.content = $event.target.innerHTML" data-ng-blur="note.content = $event.target.innerHTML" ng-bind-html="note.content | unsafe">
+							</p>
 					  			<div class="row" id="toolbar">
 						  			<div class="col-xs-10">
 
@@ -74,9 +94,7 @@
 
 						  		 	
 						  			<button ng-click="removeNote(note)" class="option glyphicon glyphicon-trash"></button>
-						  			<button ng-click="updateNote($index, note)" class="option glyphicon">Save</button>
-						  			
-						  			<button ng-click="open($index,note)" class="option glyphicon glyphicon-edit"></button>
+						  			<button ng-click="tag= note.tag; open($index,note)" class="option glyphicon glyphicon-edit"></button>
 						  			</div>
 					  			</div>
 				  			</div>
@@ -91,8 +109,9 @@
 				  <div class="tab-pane fade" id="newnote">
 				  	<form role="form">
 				  	<div class="col-lg-12">
-					<textarea class="createnote" id="notecontent" ng-model="newNote">
+					<textarea class="createnote" id="notecontent">
 					</textarea>
+
 				</div>
 
 					<div class="col-md-10">
