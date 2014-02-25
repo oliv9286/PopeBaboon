@@ -65,13 +65,13 @@
 									
 				  	<div ng-repeat="note in notes |orderByPriority | orderBy: '-date'| filter:q | filter:tagFilter:true">
 				  		<div class="col-lg-12">
-				  		
-
 				  			<div ng-mouseenter="showControl($index)" ng-mouseleave="hideControl($index)" class="notepage {{note.tag}}" id="note{{$index}}">
 
 				  			<!-- fix this to be on-keyup -->
-							<p class="notecontent" contenteditable="true" data-ng-keydown="setCursorToEnd($event.target)" data-ng-keydown="note.content = $event.target.innerHTML" data-ng-blur="note.content = $event.target.innerHTML" ng-bind-html="note.content | unsafe">
+							<p class="notecontent" contenteditable="true" data-ng-keydown="setCursorToEnd($event.keyCode, $event.target)" data-ng-keydown="note.content = $event.target.innerHTML" data-ng-blur="note.content = $event.target.innerHTML" ng-bind-html="note.content | unsafe">
 							</p>
+
+
 					  			<div class="row" id="toolbar">
 						  			<div class="col-xs-10">
 
