@@ -35,7 +35,7 @@ angular.module('myApp.controllers', [])
     // facebook login
     $scope.loginFB = function(cb) {
 
-       loginService.loginProvider('facebook', function(err, user) {
+       loginService.loginProvider('facebook', 'email, read_friendlists',function(err, user) {
              $scope.err = err? err + '' : null;
              if( !err ) {
                 cb && cb(user);
@@ -46,7 +46,7 @@ angular.module('myApp.controllers', [])
     // github login
     $scope.loginGH = function(cb) {
 
-       loginService.loginProvider('github', function(err, user) {
+       loginService.loginProvider('github', 'user:email', function(err, user) {
              $scope.err = err? err + '' : null;
              if( !err ) {
                 cb && cb(user);
@@ -102,7 +102,8 @@ angular.module('myApp.controllers', [])
             outdent: false,
             indent: false,
             remove: false,
-            source: false
+            source: false,
+            color: false
          }
       );
 
@@ -119,42 +120,10 @@ angular.module('myApp.controllers', [])
       }); 
   }
 
-  /* sets the cursor for contenteditable to the end*/
-  $scope.setCursorToEnd = function(keycode,ele)
-  {
-    //dismiss if key pressed is space or up arrow
-    if (keycode == 13 || keycode == 40){
-      return;
-    }
-  }
 
   $scope.countNotes();
 
- $scope.tag = "blue";
-
-  $scope.setTag = function (num){
-    console.log(num);
-    switch (num){
-       case 0:
-          $scope.tag = "blue";
-          break;
-       case 1:
-          $scope.tag = "green";
-          break;
-       case 2:
-          $scope.tag = "lightblue";
-          break;
-       case 3:
-          $scope.tag = "orange";
-          break;
-       case 4:
-          $scope.tag = "red";
-          break;
-       default:
-          $scope.tag = "blue";
-          break;
-    }
-  }
+  $scope.tag = "blue";
 
   $scope.showControl = function(idx){
     $("#control" + idx).fadeIn();
@@ -165,8 +134,6 @@ angular.module('myApp.controllers', [])
   }
 
   $scope.addNote = function () {
-
-    console.log($scope.tag);
     var content = $('#notecontent').val();
     var currentdate = new Date(); 
     var datetime = currentdate.getDate();  
@@ -182,16 +149,16 @@ angular.module('myApp.controllers', [])
   }
 
   $scope.removeNote = function (note) {
-    for (var id in $scope.notes){
-       
-       if ($scope.notes[id] == note) {
-          $scope.notes.$remove(id);
-       }
-    }
-     
+
+    var conf = confirm("You sure you wanna remove this note permanently?");
+    if(conf){
+
+     $scope.notes.$remove(note.$id);
+
      //reset to default tag color
      $scope.tag = "blue";
      $scope.countNotes();   
+    }
   }
 
 
@@ -199,37 +166,20 @@ angular.module('myApp.controllers', [])
     var newContent = $("#note" + idx).children('p').html();
     var newDate = new Date();
 
-
-    for (var id in $scope.notes) {
-       if ($scope.notes[id] == note){
-          $scope.notes[id].content = newContent;
-          $scope.notes[id].date = Date.parse(newDate);
-          $scope.notes[id].prettyDate = newDate.toLocaleDateString() + " " + newDate.toLocaleTimeString();   
-          $scope.notes.$save(id);
-       }
-    }
-
+    note.date = Date.parse(newDate);
+    note.prettyDate = newDate.toLocaleDateString() + " " + newDate.toLocaleTimeString();  
     $scope.tag = "blue";
+  
   }
 
-  $scope.updateTag = function(idx, note, newTag) {
-    for (var id in $scope.notes) {
-       if ($scope.notes[id] == note) {
-          $scope.notes[id].tag = newTag;
-          $scope.notes.$save(id);
-       }
-    }
-  }
 
   $scope.open = function(idx, note){
 
     $("#notecontent").jqteVal(note.content);
     $('#mainTab a[data-target="#newnote"]').tab('show');
-    for(var id in $scope.notes){
-       $scope.update = true;
-       $scope.openId = id;
-    }
 
+   $scope.update = true;
+   $scope.openId = note.$id;
   }
 
   $scope.openForUpdate = function(id){
@@ -245,6 +195,9 @@ angular.module('myApp.controllers', [])
        $scope.update = false;
        $scope.tag = "blue";
        $('#mainTab a[data-target="#notebook"]').tab('show');
+       $("#notecontent").jqteVal("");
+
+       console.log(data);
   }
 
     $scope.bindNotes = function () {
@@ -256,5 +209,9 @@ angular.module('myApp.controllers', [])
     $scope.logout = function() {
        loginService.logout();
     };
+
+    $scope.getKey = function(key){
+      console.log(key);
+    }
 
    }]);

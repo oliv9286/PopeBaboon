@@ -2,13 +2,13 @@
 
         <div class="row">
 
-        <div class="col-md-3"></div>
-        <div class="col-md-6">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
 
             <ul class="nav nav-tabs" id="loginTab">
               <li><a data-target="#register" data-toggle="tab">Sign Up for Free!</a></li>
               <li><a data-target="#signIn" data-toggle="tab">Log In</a></li>
-              <li class="active"><a data-target="#intro" data-toggle="tab">What is Pope Baboon?</a></li>
+              <li class="active"><a data-target="#intro" data-toggle="tab">What is This?</a></li>
             </ul>
 
 
@@ -30,6 +30,23 @@
                     <button class="btn btn-primary" ng-click="createAccount()">Create My Account</button>
 
                 </form>
+                <hr>
+
+                <div class="row">
+                    
+                    <div class="col-md-12 lead">
+                        <p>Don't wanna bother registering? Try: </p>
+
+                        <div class="btn-toolbar" role="toolbar">
+                        <button class="btn-group btn btn-primary fa fa-facebook-square" ng-click="loginFB()">
+                            Login with Facebook</button>
+                        <button class="btn-group btn btn-primary fa fa-github" ng-click="loginGH()">
+                            Login with GitHub</button>
+                        </div>
+                    </div>
+                    
+                    
+                </div>                
               </div>
               <div class="tab-pane fade" id="signIn">
                 <div class="content">
@@ -48,37 +65,48 @@
                     <button class="btn btn-primary" ng-click="login()">Login</button>
                 </form>             
               </div>
+                <hr>
+
+                <div class="row">
+                    
+                    <div class="col-md-12 lead">
+                        <p>Don't wanna bother registering? Try: </p>
+
+                        <div class="btn-toolbar" role="toolbar">
+                        <button class="btn-group btn btn-primary fa fa-facebook-square" ng-click="loginFB()">
+                            Login with Facebook</button>
+                        <button class="btn-group btn btn-primary fa fa-github" ng-click="loginGH()">
+                            Login with GitHub</button>
+                        </div>
+                    </div>
+                    
+                    
+                </div>              
             </div>
             <div class="tab-pane fade in active" id="intro">
-                <div class="content">
-                    <p>Welcome!</p>
-                    <p>Project Pope Baboon is a web-based note taker built with <a href="https://www.firebase.com/">AngularJS + Firebase</a></p>
-                    <p>Use it to take and organize quick notes (:</p>
-
-                    <button class="btn btn-default"><a target="_blank" href="https://github.com/oliv9286/popebaboon">View source code on GitHub</a></button>
+                <div class="content lead">
+                    <p>Project Pope Baboon is an online notepad built with <a href="https://www.firebase.com/">AngularJS + Firebase</a></p>
+                     <button class="btn btn-default"><a target="_blank" href="https://github.com/oliv9286/popebaboon">View source code on GitHub</a></button>                   
+                    <hr>
+                    <p class='lead'>Why Pope Baboon?</p>
+                    <div class='instructions orange'>
+                        <ul>
+                            <li>Synchronize and access your notes anywhere, anytime</li>
+                            <li>Save your notes with every key you press, no more nightmares of loosing data</li>
+                            <li>Have access to all of your notes at once, throw away the hassle of loading indivual files</li>
+                            <li>Organize your notes better with colour tagging</li>
+                            <li>... Because <a href="http://www.oliviazhang.org" target="_blank">Olivia</a> got tired of being the note taker in her HCI class and made this</li>
+                        </ul>
+                        
+                    </div>
+    
                 </div>
             </div>
             </div>
         </div>
 
-        <div class="col-md-3"></div>
+        <div class="col-md-2"></div>
         </div>
 
-        <hr>
 
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6 lead">
-                <p>Don't wanna bother registering? Try: </p>
-
-                <div class="btn-toolbar" role="toolbar">
-                <button class="btn-group btn btn-primary fa fa-facebook-square" ng-click="loginFB()">
-                    Login with Facebook</button>
-                <button class="btn-group btn btn-primary fa fa-github" ng-click="loginGH()">
-                    Login with GitHub</button>
-                </div>
-            </div>
-            <div class="col-md-3"></div>
-            
-        </div>
 </div>

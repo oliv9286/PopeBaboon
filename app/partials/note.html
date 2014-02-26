@@ -1,10 +1,16 @@
 	<div class="container">
+						<div class="row col-md-11"></div>
+						<div class="col-md-1 content">
+						<div class="btn-group">
+							<button class="btn btn-primary btn-sm" ng-click="logout()">Logout</button>
+						</div>
+						</div>			
 
-
+				<div class="row col-lg-12">
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs" id="mainTab">
 				  <li class="active"><a data-target="#notebook" data-toggle="tab">My Notebook</a></li>
-				  <li><a data-target="#newnote" data-toggle="tab">Create New Note</a></li>
+				  <li><a data-target="#newnote" data-toggle="tab">Rich Text Editor</a></li>
 
 				</ul>
 
@@ -18,7 +24,7 @@
 					</div>
 
 					<div class="row content">
-						<div class="col-xs-11">
+						<div class="col-sm-10">
 						<div class="btn-toolbar" role="toolbar">
 						<div class="btn-group">
 							<button class="btn btn-default glyphicon" ng-click="tagFilter = {}">All</button>
@@ -33,11 +39,11 @@
 
 						</div>
 						</div>
-						<div class="col-xs-1">
+						<div class="col-sm-2">
 						<div class="btn-group">
-							<button class="btn btn-primary btn-sm" ng-click="logout()">Logout</button>
+							<button class="btn btn-primary" ng-click="addNote()"><span class="glyphicon glyphicon-file"></span> New Note</button>
 						</div>
-						</div>
+						</div>		
 
 					</div>
 
@@ -54,7 +60,7 @@
 							<div class="col-md-10">
 							<div class="instructions blue">
 								<p>Usage Tips:</p>
-								<ul>Click directly on a note to make quick edit, Pope Baboon saves all your changes automatically!</ul>
+								<ul>Click directly on a note to make quick edit, Pope Baboon will save all your changes automatically!</ul>
 								<ul>For more complex edits, open it up in rich text editor by clicking <span class="glyphicon glyphicon-edit"></span></ul>
 							</div>
 							</div>
@@ -64,11 +70,11 @@
 
 									
 				  	<div ng-repeat="note in notes |orderByPriority | orderBy: '-date'| filter:q | filter:tagFilter:true">
-				  		<div class="col-lg-12">
+				  		<div class="row col-lg-12">
 				  			<div ng-mouseenter="showControl($index)" ng-mouseleave="hideControl($index)" class="notepage {{note.tag}}" id="note{{$index}}">
 
 				  			<!-- fix this to be on-keyup -->
-							<p class="notecontent" contenteditable="true" data-ng-keydown="setCursorToEnd($event.keyCode, $event.target)" data-ng-keydown="note.content = $event.target.innerHTML" data-ng-blur="note.content = $event.target.innerHTML" ng-bind-html="note.content | unsafe">
+							<p contenteditable="true" data-ng-keydown="" data-ng-keydown="note.content = $event.target.innerHTML" data-ng-blur="note.content = $event.target.innerHTML; updateNote($index, note)" ng-bind-html="note.content | unsafe">
 							</p>
 
 
@@ -80,11 +86,11 @@
 						  			
 
 									<div class="btn-group">
-										<button class="btn btn-primary btn-xs glyphicon glyphicon-tag" ng-click="updateTag($index, note,'blue')"></button>
-										<button class="btn btn-success btn-xs glyphicon glyphicon-tag" ng-click="updateTag($index, note,'green')"></button>
-										<button class="btn btn-info btn-xs glyphicon glyphicon-tag" ng-click="updateTag($index, note,'lightblue')"></button>
-										<button class="btn btn-warning btn-xs glyphicon glyphicon-tag" ng-click="updateTag($index, note,'orange')"></button>
-										<button class="btn btn-danger btn-xs glyphicon glyphicon-tag"  ng-click="updateTag($index, note,'red')"></button>
+										<button class="btn btn-primary btn-xs glyphicon glyphicon-tag" ng-click="note.tag = 'blue'"></button>
+										<button class="btn btn-success btn-xs glyphicon glyphicon-tag" ng-click="note.tag = 'green'"></button>
+										<button class="btn btn-info btn-xs glyphicon glyphicon-tag" ng-click="note.tag = 'lightblue' "></button>
+										<button class="btn btn-warning btn-xs glyphicon glyphicon-tag" ng-click = "note.tag = 'orange' "></button>
+										<button class="btn btn-danger btn-xs glyphicon glyphicon-tag"  ng-click="note.tag = 'red' "></button>
 									</div>	
 
 
@@ -92,9 +98,8 @@
 									</div>
 						  			<div class="col-xs-2">					  				
 
-						  		 	
 						  			<button ng-click="removeNote(note)" class="option glyphicon glyphicon-trash"></button>
-						  			<button ng-click="tag= note.tag; open($index,note)" class="option glyphicon glyphicon-edit"></button>
+						  			<button ng-click="open($index,note)" class="option glyphicon glyphicon-edit"></button>
 						  			</div>
 					  			</div>
 				  			</div>
@@ -112,7 +117,7 @@
 					<textarea class="createnote" id="notecontent">
 					</textarea>
 
-				</div>
+					</div>
 
 					<div class="col-md-10">
 						<p class="text-primary">Tag your note (optional):</p>
@@ -146,10 +151,12 @@
 							</div>
 						</div>
 					</div>
-					</div>
 				  	</form>
 
-				  </div>
+					</div>
+
+				  	</div>
+					</div>
 				</div>
 
 </div>

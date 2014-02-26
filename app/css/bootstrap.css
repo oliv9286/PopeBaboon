@@ -18,15 +18,15 @@
 }
 
 .instructions {
+  margin: 20px 0px;
   padding: 10px;
-  color: white;
+  color: #ececec;
   border-radius: 5px;
-  font-weight: lighter;
   font-size: 18px;
 }
 
 .row {
-  margin: 5px;
+/*  margin: 5px;*/
 }
 
 .logo {
@@ -62,11 +62,11 @@
   border-radius: 5px;
   margin-top:20px;
   margin-bottom: 20px;
-  color: #ffffff; 
+  color: #ececec; 
 }
 
 .notepage > p {
-  font-weight: lighter;
+  font-weight: normal;
   font-size: 18px;
 }
 

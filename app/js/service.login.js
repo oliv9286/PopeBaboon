@@ -15,10 +15,11 @@ angular.module('myApp.service.login', ['firebase', 'myApp.service.firebase'])
              * @param {Function} [callback]
              * @returns {*}
              */
-            loginProvider: function(provider, callback){
+            loginProvider: function(provider, scope, callback){
                assertAuth();
                auth.$login(provider, {
-                  rememberMe: true
+                  rememberMe: true,
+                  scope: scope
                }).then(function(user) {
                      if( callback ) {
                         callback(null, user);
